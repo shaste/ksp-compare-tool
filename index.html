@@ -7,6 +7,21 @@
   <meta name="viewport" content="width=600px, initial-scale=1">
   <link rel="stylesheet" href="awesomplete.css">
   <link rel="stylesheet" href="styles.css">
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Ajax.config.path["mhchem"] = "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.2";
+    MathJax.Hub.Config({
+      tex2jax: {
+        ignoreClass: "tex2jax_ignore",
+        inlineMath: [["$","$"]]
+      },
+      TeX: {
+        extensions: ["[mhchem]/mhchem.js", "color.js"],
+        noErrors: { disabled: true }
+      }
+    });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   <script src="awesomplete.js" async></script>
   <script src="main.js" async></script>
