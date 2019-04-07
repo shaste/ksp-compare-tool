@@ -1,0 +1,55 @@
+body {
+    margin: 0 10px;
+    /* padding: 20px 0; */
+    font-family: sans-serif;
+    max-width: 600px;
+}
+
+#app {
+    padding-top: 40px;
+}
+
+#suggestInput {
+    font-size: 20px;
+    height: 30px;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.verh {
+    padding: 0 20px;
+    
+    background-color: #F2F4F6;
+    border-radius: 8px 8px 0 0;
+}
+
+.wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.compound {
+    margin-bottom: 0;
+}
+
+.ksp {
+    font-size: 20px;
+    color: #001DFF;
+}
+
+.comment {
+    margin: 0;
+}
+
+.niz {
+    display: flex;
+    padding: 0 20px;
+    justify-content: space-between;
+    align-items: baseline;
+    
+    background-color: #DAE2EB;
+    border-radius: 0 0 8px 8px;
+}
