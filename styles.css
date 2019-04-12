@@ -2,7 +2,7 @@ body {
     margin: 0 10px;
     /* padding: 20px 0; */
     font-family: sans-serif;
-    max-width: 600px;
+    max-width: 400px;
 }
 
 #app {
@@ -15,11 +15,11 @@ body {
 }
 
 .card {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .verh {
-    padding: 0 20px;
+    padding: 0 10px;
     
     background-color: #F2F4F6;
     border-radius: 8px 8px 0 0;
@@ -32,6 +32,7 @@ body {
 }
 
 .compound {
+    font-size: 20px;
     margin-bottom: 0;
 }
 
@@ -46,7 +47,7 @@ body {
 
 .niz {
     display: flex;
-    padding: 0 20px;
+    padding: 0 10px;
     justify-content: space-between;
     align-items: baseline;
     
