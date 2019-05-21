@@ -32,7 +32,7 @@ function renderCompounds (data) {
           <div class="verh">
             <div class="wrap">
               <h2 class="compound">$\\ce{${compound.name}}$</h2>
-              <p class="ksp">${compound.ksp}</p>
+              <p class="ksp">$\\pu{${compound.ksp}}$</p>
             </div>
             <p class="comment">${compound.comment}</p>
           </div>
