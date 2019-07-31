@@ -21,19 +21,27 @@
       TeX: {
         extensions: ["[mhchem]/mhchem.js", "color.js"],
         noErrors: { disabled: true }
-      }
+      },
+      CommonHTML: {
+        mtextFontInherit: true
+      },
+      "HTML-CSS": {
+        availableFonts: ["TeX"]
+      },
+      MMLorHTML: {prefer: "HTML"}
     });
   </script>
   <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 </head>
 <body>
-  <h1>Вот что получается</h1>
+  <h1>Ksp comparision</h1>
   <form>
   </form>
-    <input type="text" id="suggestInput" data-multiple />
-    <button id="load-button" >PUSH</button>
-  
+  <div style="position: relative;">
+    <input type="text" id="suggestInput" data-multiple placeholder="Start enter ions"/>
+    <button id="load-button" >⮐</button>
+  </div>
   <div id="app"></div>
 </body>
 </html>

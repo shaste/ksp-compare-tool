@@ -1,18 +1,7 @@
 import Awesomplete from 'awesomplete/awesomplete.js';
 import $ from 'jquery';
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   $('#load-button').on('click', function() {
-//     loadCards();
-//   });
-//   console.log('222')
-// })
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
-
 
   $('#load-button').on('click', function() {
     loadCards();

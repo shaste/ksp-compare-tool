@@ -1,6 +1,5 @@
 body {
-    margin: 0 10px;
-    /* padding: 20px 0; */
+    margin: 0 auto !important;
     font-family: sans-serif;
     max-width: calc(375px - 20px);
 }
@@ -10,62 +9,85 @@ body {
 }
 
 .awesomplete {
-    display: block;
+    display: block !important;
 }
 
 #suggestInput {
     font-size: 20px;
-    height: 30px;
+    padding: 9px;
     width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #787ca659;
+
+    &::placeholder {
+        color: lightgray;
+    }
 }
 
-form {
-    position: relative;
-}
-
-form button {
+#load-button {
     position: absolute;
-    right: 10px;
-    top: 8px;
+    font-size: 9px;
+    padding: 9px 10px 10px;
+    border: none;
+    background: transparent;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .card {
-    margin-bottom: 10px;
-}
-
-.verh {
-    padding: 0 10px;
-    
     background-color: #F2F4F6;
-    border-radius: 8px 8px 0 0;
-}
-
-.wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-
-.compound {
-    font-size: 20px;
-    margin-bottom: 0;
-}
-
-.ksp {
-    font-size: 20px;
-    color: #001DFF;
-}
-
-.comment {
-    margin: 0;
-}
-
-.niz {
-    display: flex;
-    padding: 0 10px;
-    justify-content: space-between;
-    align-items: baseline;
+    border-radius: 8px;
+    margin-bottom: 10px;
     
-    background-color: #DAE2EB;
-    border-radius: 0 0 8px 8px;
+    .verh {
+        padding: 0 10px;
+        
+        .wrap {
+            padding: 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        
+        .compound {
+            font-size: 20px;
+            margin: 0;
+        }
+        
+        .ksp {
+            font-size: 20px;
+            color: #001DFF;
+            margin: 0;
+        }
+        
+        .comment {
+            font-size: 14px;
+            margin: 0;
+            padding: 2px 0 10px;
+        }
+    }
+    
+    
+    .niz {
+        display: flex;
+        margin-left: 10px;
+        border-top: 1px solid #787ca659;
+        justify-content: space-between;
+        align-items: baseline;
+
+        p.dissotiation {
+            font-size: 14px;
+            color: #787ca6;
+            margin: 5px 0 10px;
+            padding: 5px 0;
+            display: block;
+            margin-left: -5px;
+        }
+
+        .color {
+            margin: 0;
+            padding-right: 10px;
+        }
+    }
 }
