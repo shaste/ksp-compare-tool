@@ -4,9 +4,12 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>K S P</title>
-  <meta name="viewport" content="width=600px, initial-scale=1">
-  <link rel="stylesheet" href="awesomplete.css">
-  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/app.css">
+  <link rel="stylesheet" href="/vendor.css">
+  <script src="/vendor.js"></script>
+  <script src="/app.js"></script>
+  <script>require('initialize');</script>
   
   <script type="text/x-mathjax-config">
     MathJax.Ajax.config.path["mhchem"] = "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.2";
@@ -23,16 +26,13 @@
   </script>
   <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <script src="awesomplete.js" async></script>
-  <script src="main.js" async></script>
 </head>
 <body>
   <h1>Вот что получается</h1>
   <form>
-    <!-- <input type="submit" style="display: none" onclick="loadCards()" /> -->
   </form>
-  <input type="text" id="suggestInput" data-multiple />
-  <button onclick="loadCards()">PUSH</button>
+    <input type="text" id="suggestInput" data-multiple />
+    <button id="load-button" >PUSH</button>
   
   <div id="app"></div>
 </body>
