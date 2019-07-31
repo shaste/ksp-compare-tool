@@ -5,6 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   $('#load-button').on('click', function() {
     loadCards();
+    event.preventDefault();
+  });
+
+  document.getElementById('suggestInput').addEventListener('keypress', function(event) {
+    if (event.keyCode == 13) {
+      loadCards();
+      event.preventDefault();
+    }
   });
 
 	function loadCards () {
