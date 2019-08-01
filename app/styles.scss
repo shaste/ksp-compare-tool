@@ -59,6 +59,14 @@ body {
             font-size: 20px;
             color: #001DFF;
             margin: 0;
+
+            span.log {
+                
+            }
+
+            span.minus-log {
+                display: none;
+            }
         }
         
         .comment {

@@ -50,7 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	          <div class="verh">
 	            <div class="wrap">
 	              <h2 class="compound">$\\ce{${compound.name}}$</h2>
-	              <p class="ksp">$\\pu{${compound.ksp}}$</p>
+                <p class="ksp">
+                  <span class="log">$\\pu{${compound.ksp}}$</span>
+                  <span class="minus-log">$\\pu{${-Math.log10(compound.ksp).toFixed(2)}}$</span>
+                </p>
 	            </div>
 	            <p class="comment">${compound.comment}</p>
 	          </div>
