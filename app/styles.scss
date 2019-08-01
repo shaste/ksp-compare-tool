@@ -91,3 +91,7 @@ body {
         }
     }
 }
+
+.tagify__tag>div>* {
+    overflow: inherit !important;
+}

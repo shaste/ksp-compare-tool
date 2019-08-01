@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@yaireo/tagify@^2.23.1":
+  version "2.23.1"
+  resolved "https://registry.yarnpkg.com/@yaireo/tagify/-/tagify-2.23.1.tgz#7473655d80131191422951cddea080b0569f0a8d"
+  integrity sha512-n9k3dR7puF6gp9L8lET1cACk7vN4j2UmrWeTmIvMNLPtWis9hTJ0M6zLC2XYc7edcuUO0/axO6bTqqT+9se8vg==
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -222,11 +227,6 @@ auto-reload-brunch@^2:
   dependencies:
     anymatch "1.3.0"
     ws "~1.1.0"
-
-awesomplete@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/awesomplete/-/awesomplete-1.1.4.tgz#cdfcbbb2391857ff3a3340b5b1ebde7701b355e6"
-  integrity sha512-AgYrODNlVD3ZJ6Em54YesLnOSusuVCjoRAt0l5bi3L1Oiv5r5dkPdxVPJaG3/wnPlxRUmGcpGnK02VK7N02kCg==
 
 aws-sign2@~0.7.0:
   version "0.7.0"

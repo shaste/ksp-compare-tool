@@ -1,4 +1,4 @@
-import Awesomplete from 'awesomplete/awesomplete.js';
+import Tagify from '@yaireo/tagify'
 import $ from 'jquery';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,9 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 	function loadCards () {
-	  let inputValue = document.getElementById('suggestInput').value;
-	  inputValue = inputValue.slice(0, -2); //удаляю лишнюю запятую с пробелом в конце
-	  inputValue = inputValue.split(', '); //преобразую в массив
+    const preInputValue = tagify.value;
+    const inputValue = preInputValue.map(function(element) {
+      return element.value;
+    })
 
 	  fetch("http://lunrox.com:4486/compounds", {
 	    method: "POST",
@@ -61,25 +62,231 @@ document.addEventListener('DOMContentLoaded', () => {
 	      `
 	    )
 	    .join(""); 
-	};
+  };
 
-	new Awesomplete('input[data-multiple]', {
-	  minChars: 1,
+  const input = document.querySelector('input[name=ions]');
 
-		filter: function(text, input) {
-			return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0]);
-		},
+  const tagify = new Tagify(input, {
+    enforceWhitelist: true,
+    skipInvalid: true,
+    dropdown: {
+      enabled: 1,
+    },
+    templates : {
+      tag : function(v, tagData){
+          try{
+          return `
+            <tag title='${v}' contenteditable='false' spellcheck="false" class='tagify__tag value='${v}'>
+              <x title='remove tag' class='tagify__tag__removeBtn'></x>
+              <div>
+                <span class='tagify__tag-text'>${tagData.output}</span>
+              </div>
+            </tag>
+            `;
+          }
+          catch(err){}
+      },
 
-		item: function(text, input) {
-			return Awesomplete.ITEM(text, input.match(/[^,]*$/)[0]);
-		},
+      dropdownItem : function(tagData){
+          try{
+          return `
+            <div class='tagify__dropdown__item'>
+                <span>${tagData.output}</span>
+            </div>
+            `
+          }
+          catch(err){}
+      }
+    },
+    whitelist: [
+      { value: "H^1+", output: "H<sup>1+</sup>" },
+      { value: "Ac^3+", output: "Ac<sup>3+</sup>" },
+      { value: "Ag^1+", output: "Ag<sup>1+</sup>" },
+      { value: "Al^3+", output: "Al<sup>3+</sup>" },
+      { value: "Am^3+", output: "Am<sup>3+</sup>" },
+      { value: "Am^4+", output: "Am<sup>4+</sup>" },
+      { value: "Au^1+", output: "Au<sup>1+</sup>" },
+      { value: "Au^3+", output: "Au<sup>3+</sup>" },
+      { value: "Ba^2+", output: "Ba<sup>2+</sup>" },
+      { value: "Be^2+", output: "Be<sup>2+</sup>" },
+      { value: "Bi^3+", output: "Bi<sup>3+</sup>" },
+      { value: "BiO^1+", output: "BiO<sup>1+</sup>" },
+      { value: "Bi^3+", output: "Bi<sup>3+</sup>" },
+      { value: "BiO^1+", output: "BiO<sup>1+</sup>" },
+      { value: "Ca^2+", output: "Ca<sup>2+</sup>" },
+      { value: "Cd^2+", output: "Cd<sup>2+</sup>" },
+      { value: "[Cd(NH3)6]^2+", output: "[Cd(NH<sub>3</sub>)<sub>6</sub>]<sup>2+</sup>" },
+      { value: "Ce^3+", output: "Ce<sup>3+</sup>" },
+      { value: "Ce^4+", output: "Ce<sup>4+</sup>" },
+      { value: "CeO^2+", output: "CeO<sup>2+</sup>" },
+      { value: "Co^2+", output: "Co<sup>2+</sup>" },
+      { value: "[Co(NH3)6]^2+", output: "[Co(NH<sub>3</sub>)<sub>6</sub>]<sup>2+</sup>" },
+      { value: "[Co(NH3)6]^3+", output: "[Co(NH<sub>3</sub>)<sub>6</sub>]<sup>3+</sup>" },
+      { value: "Co^3+", output: "Co<sup>3+</sup>" },
+      { value: "Cr^2+", output: "Cr<sup>2+</sup>" },
+      { value: "Cr^3+", output: "Cr<sup>3+</sup>" },
+      { value: "[Cr(NH3)6]^3+", output: "[Cr(NH<sub>3</sub>)<sub>6</sub>]<sup>3+</sup>" },
+      { value: "Cs^1+", output: "Cs<sup>1+</sup>" },
+      { value: "Cu^2+", output: "Cu<sup>2+</sup>" },
+      { value: "Cu^1+", output: "Cu<sup>1+</sup>" },
+      { value: "Fe^2+", output: "Fe<sup>2+</sup>" },
+      { value: "Fe^3+", output: "Fe<sup>3+</sup>" },
+      { value: "Ga^3+", output: "Ga<sup>3+</sup>" },
+      { value: "Ge^4+", output: "Ge<sup>4+</sup>" },
+      { value: "Ga^2+", output: "Ga<sup>2+</sup>" },
+      { value: "HfO^2+", output: "HfO<sup>2+</sup>" },
+      { value: "Hg2^2+", output: "Hg<sub>2</sub><sup>2+</sup>" },
+      { value: "Hg^2+", output: "Hg<sup>2+</sup>" },
+      { value: "In^3+", output: "In<sup>3+</sup>" },
+      { value: "Ir^4+", output: "Ir<sup>4+</sup>" },
+      { value: "Ir^3+", output: "Ir<sup>3+</sup>" },
+      { value: "K^1+", output: "K<sup>1+</sup>" },
+      { value: "La^3+", output: "La<sup>3+</sup>" },
+      { value: "Li^1+", output: "Li<sup>1+</sup>" },
+      { value: "Mg^2+", output: "Mg<sup>2+</sup>" },
+      { value: "Mn^2+", output: "Mn<sup>2+</sup>" },
+      { value: "Mn^3+", output: "Mn<sup>3+</sup>" },
+      { value: "Mn^4+", output: "Mn<sup>4+</sup>" },
+      { value: "Mo^4+", output: "Mo<sup>4+</sup>" },
+      { value: "(NH4)^1+", output: "(NH<sub>4</sub>)<sup>1+</sup>" },
+      { value: "Na^1+", output: "Na<sup>1+</sup>" },
+      { value: "(NH3)^0", output: "(NH<sub>3</sub>)<sup>0</sup>" },
+      { value: "Ni^2+", output: "Ni<sup>2+</sup>" },
+      { value: "[Ni(NH3)6]^2+", output: "[Ni(NH<sub>3</sub>)<sub>6</sub>]<sup>2+</sup>" },
+      { value: "Ni^2+", output: "Ni<sup>2+</sup>" },
+      { value: "NpO2^2+", output: "NpO<sub>2</sub><sup>2+</sup>" },
+      { value: "Pb^2+", output: "Pb<sup>2+</sup>" },
+      { value: "Pb^4+", output: "Pb<sup>4+</sup>" },
+      { value: "Pd^2+", output: "Pd<sup>2+</sup>" },
+      { value: "Pd^4+", output: "Pd<sup>4+</sup>" },
+      { value: "Po^2+", output: "Po<sup>2+</sup>" },
+      { value: "Po^4+", output: "Po<sup>4+</sup>" },
+      { value: "Pt^4+", output: "Pt<sup>4+</sup>" },
+      { value: "Pt^2+", output: "Pt<sup>2+</sup>" },
+      { value: "Pu^4+", output: "Pu<sup>4+</sup>" },
+      { value: "PuO2^2+", output: "PuO<sub>2</sub><sup>2+</sup>" },
+      { value: "Pu^3+", output: "Pu<sup>3+</sup>" },
+      { value: "PuO^2+", output: "PuO<sup>2+</sup>" },
+      { value: "Ra^2+", output: "Ra<sup>2+</sup>" },
+      { value: "Rb^1+", output: "Rb<sup>1+</sup>" },
+      { value: "Rb^1+", output: "Rb<sup>1+</sup>" },
+      { value: "Rh^3+", output: "Rh<sup>3+</sup>" },
+      { value: "Ru^3+", output: "Ru<sup>3+</sup>" },
+      { value: "Ru^4+", output: "Ru<sup>4+</sup>" },
+      { value: "Sb^3+", output: "Sb<sup>3+</sup>" },
+      { value: "Sc^3+", output: "Sc<sup>3+</sup>" },
+      { value: "Sn^2+", output: "Sn<sup>2+</sup>" },
+      { value: "Sn^4+", output: "Sn<sup>4+</sup>" },
+      { value: "Sr^2+", output: "Sr<sup>2+</sup>" },
+      { value: "Te^4+", output: "Te<sup>4+</sup>" },
+      { value: "Th^4+", output: "Th<sup>4+</sup>" },
+      { value: "Ti^4+", output: "Ti<sup>4+</sup>" },
+      { value: "Tl^1+", output: "Tl<sup>1+</sup>" },
+      { value: "Tl^3+", output: "Tl<sup>3+</sup>" },
+      { value: "(UO2)^2+", output: "(UO<sub>2</sub>)<sup>2+</sup>" },
+      { value: "U^3+", output: "U<sup>3+</sup>" },
+      { value: "U^4+", output: "U<sup>4+</sup>" },
+      { value: "VO^2+", output: "VO<sup>2+</sup>" },
+      { value: "V^5+", output: "V<sup>5+</sup>" },
+      { value: "W^4+", output: "W<sup>4+</sup>" },
+      { value: "Y^3+", output: "Y<sup>3+</sup>" },
+      { value: "Zn^2+", output: "Zn<sup>2+</sup>" },
+      { value: "Zn^4+", output: "Zn<sup>4+</sup>" },
+      { value: "(C4H7O2N2)^1-", output: "(C<sub>4</sub>H<sub>7</sub>O<sub>2</sub>N<sub>2</sub>)<sup>1−</sup>" },
+      { value: "(C6H5)4B^1-", output: "(C<sub>6</sub>H<sub>5</sub>)<sub>4</sub>B<sup>1−</sup>" },
+      { value: "(NH4)2[Fe(CN)6]^2-", output: "(NH<sub>4</sub>)<sub>2</sub>[Fe(CN)<sub>6</sub>]<sup>2−</sup>" },
+      { value: "[(NH4)2Fe(CN)6]^2-", output: "[(NH<sub>4</sub>)<sub>2</sub>Fe(CN)<sub>6</sub>]<sup>2−</sup>" },
+      { value: "[AuCl4]^1-", output: "[AuCl<sub>4</sub>]<sup>1−</sup>" },
+      { value: "[Co(CN)6]^3-", output: "[Co(CN)<sub>6</sub>]<sup>3−</sup>" },
+      { value: "[Co(NO2)6]^3-", output: "[Co(NO<sub>2</sub>)<sub>6</sub>]<sup>3−</sup>" },
+      { value: "[Fe(CN)6]^4-", output: "[Fe(CN)<sub>6</sub>]<sup>4−</sup>" },
+      { value: "[Fe(CN^1-)6]^3-", output: "[Fe(CN<sup>1−</sup>)<sub>6</sub>]<sup>3−</sup>" },
+      { value: "[Fe(CN^1-)6]^4-", output: "[Fe(CN<sup>1−</sup>)<sub>6</sub>]<sup>4−</sup>" },
+      { value: "[Hg(SCN)4]^2-", output: "[Hg(SCN)<sub>4</sub>]<sup>2−</sup>" },
+      { value: "[HgCl3]^1-", output: "[HgCl<sub>3</sub>]<sup>1−</sup>" },
+      { value: "[IrCl6]^2-", output: "[IrCl<sub>6</sub>]<sup>2−</sup>" },
+      { value: "[PdCl4]^2-", output: "[PdCl<sub>4</sub>]<sup>2−</sup>" },
+      { value: "[PdCl6]^2-", output: "[PdCl<sub>6</sub>]<sup>2−</sup>" },
+      { value: "[Pt(CN)4]^2-", output: "[Pt(CN)<sub>4</sub>]<sup>2−</sup>" },
+      { value: "[PtCl4]^2-", output: "[PtCl<sub>4</sub>]<sup>2−</sup>" },
+      { value: "[PtCl6]^2-", output: "[PtCl<sub>6</sub>]<sup>2−</sup>" },
+      { value: "[PtF6]^2-", output: "[PtF<sub>6</sub>]<sup>2−</sup>" },
+      { value: "[Sb(OH)6]^1-", output: "[Sb(OH)<sub>6</sub>]<sup>1−</sup>" },
+      { value: "[SiF6]^1-", output: "[SiF<sub>6</sub>]<sup>1−</sup>" },
+      { value: "[SnCl6]^2-", output: "[SnCl<sub>6</sub>]<sup>2−</sup>" },
+      { value: "AlF6^3-", output: "AlF<sub>6</sub><sup>3−</sup>" },
+      { value: "AsO3^3-", output: "AsO<sub>3</sub><sup>3−</sup>" },
+      { value: "AsO4^3-", output: "AsO<sub>4</sub><sup>3−</sup>" },
+      { value: "BeF4^2-", output: "BeF<sub>4</sub><sup>2−</sup>" },
+      { value: "BF4^1-", output: "BF<sub>4</sub><sup>1−</sup>" },
+      { value: "BH4^1-", output: "BH<sub>4</sub><sup>1−</sup>" },
+      { value: "BO2^1-", output: "BO<sub>2</sub><sup>1−</sup>" },
+      { value: "Br^1-", output: "Br<sup>1−</sup>" },
+      { value: "BrO3^1-", output: "BrO<sub>3</sub><sup>1−</sup>" },
+      { value: "C2H3O2^1-", output: "C<sub>2</sub>H<sub>3</sub>O<sub>2</sub><sup>1−</sup>" },
+      { value: "C2O4^2-", output: "C<sub>2</sub>O<sub>4</sub><sup>2−</sup>" },
+      { value: "C4H4O6^2-", output: "C<sub>4</sub>H<sub>4</sub>O<sub>6</sub><sup>2−</sup>" },
+      { value: "Cl^1-", output: "Cl<sup>1−</sup>" },
+      { value: "ClO2^1-", output: "ClO<sub>2</sub><sup>1−</sup>" },
+      { value: "ClO3^1-", output: "ClO<sub>3</sub><sup>1−</sup>" },
+      { value: "ClO4^1-", output: "ClO<sub>4</sub><sup>1−</sup>" },
+      { value: "CN^1-", output: "CN<sup>1−</sup>" },
+      { value: "CO3^2-", output: "CO<sub>3</sub><sup>2−</sup>" },
+      { value: "Cr2O7^2-", output: "Cr<sub>2</sub>O<sub>7</sub><sup>2−</sup>" },
+      { value: "CrO4^2-", output: "CrO<sub>4</sub><sup>2−</sup>" },
+      { value: "CrOH^1-", output: "CrOH<sup>1−</sup>" },
+      { value: "F^1-", output: "F<sup>1−</sup>" },
+      { value: "GeF6^2-", output: "GeF<sub>6</sub><sup>2−</sup>" },
+      { value: "H2PO4^1-", output: "H<sub>2</sub>PO4<sup>1−</sup>" },
+      { value: "HAsO4^2-", output: "HAsO<sub>4</sub><sup>2−</sup>" },
+      { value: "HfF6^2-", output: "HfF<sub>6</sub><sup>2−</sup>" },
+      { value: "Hg(SCN)4^2-", output: "Hg(SCN)<sub>4</sub><sup>2−</sup>" },
+      { value: "HPO4^2-", output: "HPO<sub>4</sub><sup>2−</sup>" },
+      { value: "HVO4^2-", output: "HVO<sub>4</sub><sup>2−</sup>" },
+      { value: "I^1-", output: "I<sup>1−</sup>" },
+      { value: "IO3^1-", output: "IO<sub>3</sub><sup>1−</sup>" },
+      { value: "IO4^1-", output: "IO<sub>4</sub><sup>1−</sup>" },
+      { value: "IrCl6^2-", output: "IrCl<sub>6</sub><sup>2−</sup>" },
+      { value: "KAsO4^2-", output: "KAsO<sub>4</sub><sup>2−</sup>" },
+      { value: "KPO4^2-", output: "KPO<sub>4</sub><sup>2−</sup>" },
+      { value: "MnO4^1-", output: "MnO<sub>4</sub><sup>1−</sup>" },
+      { value: "MoO4^2-", output: "MoO<sub>4</sub><sup>2−</sup>" },
+      { value: "N3^1-", output: "N<sub>3</sub><sup>1−</sup>" },
+      { value: "NaAsO4^2-", output: "NaAsO<sub>4</sub><sup>2−</sup>" },
+      { value: "NH4AsO4^2-", output: "NH<sub>4</sub>AsO<sub>4</sub><sup>2−</sup>" },
+      { value: "NH4PO4^2-", output: "NH<sub>4</sub>PO<sub>4</sub><sup>2−</sup>" },
+      { value: "NO2^1-", output: "NO<sub>2</sub><sup>1−</sup>" },
+      { value: "NO3^1-", output: "NO<sub>3</sub><sup>1−</sup>" },
+      { value: "O^2-", output: "O<sup>2−</sup>" },
+      { value: "OCN^1-", output: "OCN<sup>1−</sup>" },
+      { value: "OH^1-", output: "OH<sup>1−</sup>" },
+      { value: "P2O7^4-", output: "P<sub>2</sub>O<sub>7</sub><sup>4−</sup>" },
+      { value: "PbO4^4-", output: "PbO<sub>4</sub><sup>4−</sup>" },
+      { value: "PO3F^2-", output: "PO<sub>3</sub>F<sup>2−</sup>" },
+      { value: "PO4^2-", output: "PO<sub>4</sub><sup>2−</sup>" },
+      { value: "PO4^3-", output: "PO<sub>4</sub><sup>3−</sup>" },
+      { value: "ReO4^1-", output: "ReO<sub>4</sub><sup>1−</sup>" },
+      { value: "S^2-", output: "S<sup>2−</sup>" },
+      { value: "S2^2-", output: "S<sub>2</sub><sup>2−</sup>" },
+      { value: "S2O3^2-", output: "S<sub>2</sub>O<sub>3</sub><sup>2−</sup>" },
+      { value: "SCN^1-", output: "SCN<sup>1−</sup>" },
+      { value: "Se^2-", output: "Se<sup>2−</sup>" },
+      { value: "SeCN^1-", output: "SeCN<sup>1−</sup>" },
+      { value: "SeO3^2-", output: "SeO<sub>3</sub><sup>2−</sup>" },
+      { value: "SeO4^2-", output: "SeO<sub>4</sub><sup>2−</sup>" },
+      { value: "SiF6^1-", output: "SiF<sub>6</sub><sup>1−</sup>" },
+      { value: "SO3^2-", output: "SO<sub>3</sub><sup>2−</sup>" },
+      { value: "SO3F^1-", output: "SO<sub>3</sub>F<sup>1−</sup>" },
+      { value: "SO3NH2^1-", output: "SO<sub>3</sub>NH<sub>2</sub><sup>1−</sup>" },
+      { value: "SO4^2-", output: "SO<sub>4</sub><sup>2−</sup>" },
+      { value: "TiF6^2-", output: "TiF<sub>6</sub><sup>2−</sup>" },
+      { value: "V2O7^4-", output: "V<sub>2</sub>O<sub>7</sub><sup>4−</sup>" },
+      { value: "VO3^1-", output: "VO<sub>3</sub><sup>1−</sup>" },
+      { value: "VO3^3-", output: "VO<sub>3</sub><sup>3−</sup>" },
+      { value: "VO4^3-", output: "VO<sub>4</sub><sup>3−</sup>" },
+      { value: "WO4^2-", output: "WO<sub>4</sub><sup>2−</sup>" },
+      { value: "ZrF6^2-", output: "ZrF<sub>6</sub><sup>2−</sup>" }
+    ]
+  })
 
-		replace: function(text) {
-			var before = this.input.value.match(/^.+,\s*|/)[0];
-			this.input.value = before + text + ", ";
-	  },
-
-	  list: ["H^1+", "Ac^3+", "Ag^1+", "Al^3+", "Am^3+", "Am^4+", "Au^1+", "Au^3+", "Ba^2+", "Be^2+", "Bi^3+", "BiO^1+", "Bi^3+", "BiO^1+", "Ca^2+", "Cd^2+", "[Cd(NH3)6]^2+", "Ce^3+", "Ce^4+", "CeO^2+", "Co^2+", "[Co(NH3)6]^2+", "[Co(NH3)6]^3+", "Co^3+", "Cr^2+", "Cr^3+", "[Cr(NH3)6]^3+", "Cs^1+", "Cu^2+", "Cu^1+", "Fe^2+", "Fe^3+", "Ga^3+", "Ge^4+", "Ga^2+", "HfO^2+", "Hg2^2+", "Hg^2+", "In^3+", "Ir^4+", "Ir^3+", "K^1+", "La^3+", "Li^1+", "Mg^2+", "Mn^2+", "Mn^3+", "Mn^4+", "Mo^4+", "(NH4)^1+", "Na^1+", "(NH3)^0", "Ni^2+", "[Ni(NH3)6]^2+", "Ni^2+", "NpO2^2+", "Pb^2+", "Pb^4+", "Pd^2+", "Pd^4+", "Po^2+", "Po^4+", "Pt^4+", "Pt^2+", "Pu^4+", "PuO2^2+", "Pu^3+", "PuO^2+", "Ra^2+", "Rb^1+", "Rb^1+", "Rh^3+", "Ru^3+", "Ru^4+", "Sb^3+", "Sc^3+", "Sn^2+", "Sn^4+", "Sr^2+", "Te^4+", "Th^4+", "Ti^4+", "Tl^1+", "Tl^3+", "(UO2)^2+", "U^3+", "U^4+", "VO^2+", "V^5+", "W^4+", "Y^3+", "Zn^2+", "Zn^4+", "(C4H7O2N2)^1-", "(C6H5)4B^1-", "(NH4)2[Fe(CN)6]^2-", "[(NH4)2Fe(CN)6]^2-", "[AuCl4]^1-", "[Co(CN)6]^3-", "[Co(NO2)6]^3-", "[Fe(CN)6]^4-", "[Fe(CN^1-)6]^3-", "[Fe(CN^1-)6]^4-", "[Hg(SCN)4]^2-", "[HgCl3]^1-", "[IrCl6]^2-", "[PdCl4]^2-", "[PdCl6]^2-", "[Pt(CN)4]^2-", "[PtCl4]^2-", "[PtCl6]^2-", "[PtF6]^2-", "[Sb(OH)6]^1-", "[SiF6]^1-", "[SnCl6]^2-", "AlF6^3-", "AsO3^3-", "AsO4^3-", "BeF4^2-", "BF4^1-", "BH4^1-", "BO2^1-", "Br^1-", "BrO3^1-", "C2H3O2^1-", "C2O4^2-", "C4H4O6^2-", "Cl^1-", "ClO2^1-", "ClO3^1-", "ClO4^1-", "CN^1-", "CO3^2-", "Cr2O7^2-", "CrO4^2-", "CrOH^1-", "F^1-", "GeF6^2-", "H2PO4^1-", "HAsO4^2-", "HfF6^2-", "Hg(SCN)4^2-", "HPO4^2-", "HVO4^2-", "I^1-", "IO3^1-", "IO4^1-", "IrCl6^2-", "KAsO4^2-", "KPO4^2-", "MnO4^1-", "MoO4^2-", "N3^1-", "NaAsO4^2-", "NH4AsO4^2-", "NH4PO4^2-", "NO2^1-", "NO3^1-", "O^2-", "OCN^1-", "OH^1-", "P2O7^4-", "PbO4^4-", "PO3F^2-", "PO4^2-", "PO4^3-", "ReO4^1-", "S^2-", "S2^2-", "S2O3^2-", "SCN^1-", "Se^2-", "SeCN^1-", "SeO3^2-", "SeO4^2-", "SiF6^1-", "SO3^2-", "SO3F^1-", "SO3NH2^1-", "SO4^2-", "TiF6^2-", "V2O7^4-", "VO3^1-", "VO3^3-", "VO4^3-", "WO4^2-", "ZrF6^2-"]
-	  
-	});
 });

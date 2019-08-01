@@ -3,9 +3,9 @@ module.exports = {
   npm: {
     enabled: true,
     styles: {
-      'awesomplete': ['awesomplete.css'],
       'rangeslider.js': ['dist/rangeslider.css'],
-      'normalize.css': ['normalize.css']
+      'normalize.css': ['normalize.css'],
+      '@yaireo/tagify': ['/dist/tagify.css']
     }
   },
   files: {

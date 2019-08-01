@@ -10,7 +10,7 @@
     "build": "brunch build --production"
   },
   "dependencies": {
-    "awesomplete": "^1.1.4",
+    "@yaireo/tagify": "^2.23.1",
     "jquery": "^3.4.1",
     "normalize.css": "^8.0.1"
   },
