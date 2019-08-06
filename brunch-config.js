@@ -15,15 +15,13 @@ module.exports = {
         'app.js': /^app/
       }
     },
-    stylesheets: {
-      joinTo: {
-        'vendor.css': /^(?!app)/, // Files that are not in `app` dir.
-        'app.css': /^app/
-      }
-    }
+    stylesheets: {joinTo: 'app.css'}
   },
   plugins: {
     babel: {presets: ['latest']}
+  },
+  server: {
+    hostname: '0.0.0.0',
   }
 };
 

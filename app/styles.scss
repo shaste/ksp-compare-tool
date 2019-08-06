@@ -1,15 +1,11 @@
 body {
-    margin: 0 auto !important;
+    margin: 0 auto;
     font-family: sans-serif;
     max-width: calc(375px - 20px);
 }
 
 #app {
     padding-top: 40px;
-}
-
-.awesomplete {
-    display: block !important;
 }
 
 #suggestInput {
@@ -101,5 +97,5 @@ body {
 }
 
 .tagify__tag>div>* {
-    overflow: inherit !important;
+    overflow: inherit;
 }
