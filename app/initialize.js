@@ -32,12 +32,29 @@ document.addEventListener('DOMContentLoaded', () => {
 	    .then(json => {
 	      // Превращаем JSON d вёрстку
 	      let html = renderCompounds(json);
-	      document.querySelector("#app").innerHTML = `
+        document.querySelector("#app").innerHTML = `
+          <div class="subtitle">
+            <h3>Possible products</h3>
+            <label for="minus-log">
+              <input type="checkbox" id="minus-log">
+              −log
+            </label>
+          </div>
 	        <div class="list">
 	          ${html}
 	        </div>
 	      `;
-	      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        
+        $('#minus-log').change(function() {
+          if (this.checked) {
+            $('.scientific').hide();
+            $('.minus-log').show();
+          } else {
+            $('.scientific').show();
+            $('.minus-log').hide();
+          }
+        })
 	    });
 	};
 
@@ -45,13 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	function renderCompounds (data) {
 	  return data
 	    .map(
+        // TODO: проверять чекбокс, если включен — создавать карточки с видимым .minus-log
 	      compound => `
 	        <div class="card">
 	          <div class="verh">
 	            <div class="wrap">
 	              <h2 class="compound">$\\ce{${compound.name}}$</h2>
                 <p class="ksp">
-                  <span class="log">$\\pu{${compound.ksp}}$</span>
+                  <span class="scientific">$\\pu{${compound.ksp}}$</span>
                   <span class="minus-log">$\\pu{${-Math.log10(compound.ksp).toFixed(2)}}$</span>
                 </p>
 	            </div>
