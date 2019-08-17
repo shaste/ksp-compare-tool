@@ -124,6 +124,15 @@ body {
     }
 }
 
+.no-compounds {
+    text-align: center;
+    margin: 60px auto;
+
+    p {
+        padding: 0px 70px;
+    }
+}
+
 .tagify {
     &__tag>div>* {
         overflow: inherit;

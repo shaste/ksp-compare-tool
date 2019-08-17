@@ -31,19 +31,28 @@ document.addEventListener('DOMContentLoaded', () => {
 	    .then(response => response.json())
 	    .then(json => {
 	      // Превращаем JSON d вёрстку
-	      let html = renderCompounds(json);
-        document.querySelector("#app").innerHTML = `
-          <div class="subtitle">
-            <h3>Possible products</h3>
-            <label for="minus-log">
-              <input type="checkbox" id="minus-log">
-              &minus;log
-            </label>
-          </div>
-	        <div class="list">
-	          ${html}
-	        </div>
-	      `;
+        let html = renderCompounds(json);
+        
+        if (html.length !== 0) {
+          document.querySelector("#app").innerHTML = `
+            <div class="subtitle">
+              <h3>Possible products</h3>
+              <label for="minus-log">
+                <input type="checkbox" id="minus-log">
+                &minus;log
+              </label>
+            </div>
+	          <div class="list">
+	            ${html}
+	          </div>
+          `;
+        } else {
+          document.querySelector("#app").innerHTML = `
+            <div class="no-compounds">
+              <p>These ions don't form compounds</p>
+            </div>
+          `;
+        }
         MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
         
         $('#minus-log').change(function() {
