@@ -90,7 +90,7 @@ body {
         margin-left: 10px;
         border-top: 1px solid #787ca659;
         justify-content: space-between;
-        align-items: baseline;
+        align-items: center;
 
         p.dissotiation {
             font-size: 14px;
@@ -101,13 +101,36 @@ body {
             margin-left: -5px;
         }
 
-        .color {
-            margin: 0;
+        .colors {
+            display: flex;
             padding-right: 10px;
+
+            .color-sample {
+                margin-left: -8px;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                border: 2px solid #f2f4f6;
+            }
+
+            .White, .white {
+                background-color: white;
+            }
+
+            .Yellow, .yellow {
+                background-color: yellow;
+            }
         }
     }
 }
 
-.tagify__tag>div>* {
-    overflow: inherit;
+.tagify {
+    &__tag>div>* {
+        overflow: inherit;
+    }
+
+    &__tag__removeBtn {
+        font: 14px/14px Serif;
+        top: 48%;
+    }
 }

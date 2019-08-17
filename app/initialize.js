@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <h3>Possible products</h3>
             <label for="minus-log">
               <input type="checkbox" id="minus-log">
-              −log
+              &minus;log
             </label>
           </div>
 	        <div class="list">
@@ -59,7 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 
-	function renderCompounds (data) {
+  const colorList = [
+    {value: '#333', name: 'gray'},
+    {value: '#345000', name: 'unknoun coloe'},
+  ]
+
+	function renderCompounds(data) {
 	  return data
 	    .map(
         // TODO: проверять чекбокс, если включен — создавать карточки с видимым .minus-log
@@ -77,7 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	          </div>
 	          <div class="niz">
 	            <p class="dissotiation">$\\ce{${compound.dissotiation}}$</p>
-	            <p class="color">${compound.color}</p>
+              <div class="colors">
+                <!-- TODO: из массива цветов расставлять и красить через инлайн стили -->                
+                <!-- ${colorList.map(color => `<div class="color-sample" style="background-color:${color.value};"></div>`).join("")} -->
+              </div>
 	          </div>
 	        </div>
 	      `
@@ -92,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     skipInvalid: true,
     dropdown: {
       enabled: 1,
+      maxItems: 100,
     },
     templates : {
       tag : function(v, tagData){
@@ -278,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { value: "NH4PO4^2-", output: "NH<sub>4</sub>PO<sub>4</sub><sup>2−</sup>" },
       { value: "NO2^1-", output: "NO<sub>2</sub><sup>1−</sup>" },
       { value: "NO3^1-", output: "NO<sub>3</sub><sup>1−</sup>" },
-      { value: "O^2-", output: "O<sup>2−</sup>" },
+      { value: "O^2-", output: "O<sup>2−</sup>", searchBy: "o, o2" },
       { value: "OCN^1-", output: "OCN<sup>1−</sup>" },
       { value: "OH^1-", output: "OH<sup>1−</sup>" },
       { value: "P2O7^4-", output: "P<sub>2</sub>O<sub>7</sub><sup>4−</sup>" },
@@ -287,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { value: "PO4^2-", output: "PO<sub>4</sub><sup>2−</sup>" },
       { value: "PO4^3-", output: "PO<sub>4</sub><sup>3−</sup>" },
       { value: "ReO4^1-", output: "ReO<sub>4</sub><sup>1−</sup>" },
-      { value: "S^2-", output: "S<sup>2−</sup>" },
+      { value: "S^2-", output: "S<sup>2−</sup>", searchBy: "s, s2" },
       { value: "S2^2-", output: "S<sub>2</sub><sup>2−</sup>" },
       { value: "S2O3^2-", output: "S<sub>2</sub>O<sub>3</sub><sup>2−</sup>" },
       { value: "SCN^1-", output: "SCN<sup>1−</sup>" },
