@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="subtitle">
               <h3>Possible products</h3>
               <label for="minus-log">
-                <input type="checkbox" id="minus-log">
                 &minus;log
+                <input type="checkbox" class="toggle-switch" id="minus-log">
               </label>
             </div>
 	          <div class="list">
