@@ -18,7 +18,12 @@ module.exports = {
     stylesheets: {joinTo: 'app.css'}
   },
   plugins: {
-    babel: {presets: ['latest']}
+    babel: {presets: ['latest']},
+    postcss: {
+      processors: [
+        require('autoprefixer')(['last 8 versions']),
+      ]
+    }
   },
   server: {
     hostname: '0.0.0.0',
