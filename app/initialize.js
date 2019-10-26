@@ -68,10 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 
-  const colorList = [
-    {value: '#333', name: 'gray'},
-    {value: '#345000', name: 'unknoun coloe'},
-  ]
 
 	function renderCompounds(data) {
 	  return data
@@ -91,9 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	          </div>
 	          <div class="niz">
 	            <p class="dissotiation">$\\ce{${compound.dissotiation}}$</p>
-              <div class="colors">
-                <!-- TODO: из массива цветов расставлять и красить через инлайн стили -->                
-                <!-- ${colorList.map(color => `<div class="color-sample" style="background-color:${color.value};"></div>`).join("")} -->
+              <div class="colors">                
+                ${compound.colors.map(color => `<div class="color-sample" style="background-color:${color.code};"></div>`).join("")}
               </div>
 	          </div>
 	        </div>
