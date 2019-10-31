@@ -2,18 +2,8 @@ import Tagify from '@yaireo/tagify'
 import $ from 'jquery';
 
 document.addEventListener('DOMContentLoaded', () => {
-
-  $('#load-button').on('click', function() {
-    loadCards();
-    event.preventDefault();
-  });
-
-  document.getElementById('suggestInput').addEventListener('keypress', function(event) {
-    if (event.keyCode == 13) {
-      loadCards();
-      event.preventDefault();
-    }
-  });
+  let currentTag = null;
+  let enter = false;
 
 	function loadCards () {
     const preInputValue = tagify.value;
@@ -323,4 +313,29 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
   })
 
+  $('#load-button').on('click', function() {
+    loadCards();
+    event.preventDefault();
+  });
+
+  tagify.on('input', function (event) {
+    currentTag = event.detail.value;
+  });
+  
+  tagify.on('dropdown:select', function() {
+    enter = false;
+  })
+  
+  tagify.on('dropdown:hide', function() {
+    setTimeout(function() {
+      enter = true;
+    }, 300)
+  })
+  
+  // TODO Отслеживать момент, когда все теги удалены?
+  $(tagify.DOM.input).keyup(function (event) {  
+    if (event.keyCode == 13 && currentTag !== '' && currentTag !== null && enter !== false) {
+      loadCards();
+    }
+  })
 });
