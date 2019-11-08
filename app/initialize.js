@@ -49,9 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
           if (this.checked) {
             $('.scientific').hide();
             $('.minus-log').show();
+            $('.ksp').css('padding-top', '3px');
           } else {
             $('.scientific').show();
             $('.minus-log').hide();
+            $('.ksp').css('padding-top', '0');
           }
         })
 	    });
