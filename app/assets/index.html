@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Compounds Finder | Ksp</title>
+  <title>Solubulity product constant search and compare tool | Ksp</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/app.css">
   <script src="/vendor.js"></script>
@@ -34,8 +34,18 @@
 
 </head>
 <body>
-  <h1>Compounds Finder</h1>
-  <!-- <p>non-organic, solubility product constant</p> -->
+  <header>
+    <img src="/images/ksp-logo.svg" alt="">
+    <nav>
+      <button class="menu-icon">i</button>
+      <div class="menu-opened">
+        <p>Инструмент для поиска возможных соединений между ионами. Введите ионы, чтобы увидеть какие соединения они образуют.</p>
+        <p>Соединения можно сравнить по константе произведения растворимости, цвету и диссоциации.</p>
+        <p>Константа произведения растворимости справедлива при растворении в воде, при температуре 25°C, для 1 л раствора.</p>
+        <p>Если вы нашли ошибки или хотите что-то добавить, пишите на <a href="mailto:compoundsfinder@gmail.com?subject=Bug Report">compoundsfinder@gmail.com</a></p>
+      </div>
+    </nav>
+  </header>
   <form style="position: relative;">
     <input name="ions" type="text" id="suggestInput" placeholder="Start enter ions" autofocus/>
     <input type="submit" id="load-button" value="&#11152;"/>

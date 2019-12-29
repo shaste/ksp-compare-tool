@@ -9,6 +9,44 @@ body {
     }
 }
 
+header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+        display: black;
+        margin: 5px 0px 10px;
+    }
+    
+    nav {
+        .menu-icon {
+            cursor: pointer;
+            font-family: serif;
+            font-style: italic;
+            line-height: 1;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 20px;
+            color: #797CA6;
+            background-color: #F2F4F6;
+        }
+
+        .menu-opened {
+            display: none;
+            position: absolute;
+            z-index: 99;
+            top: 55px;
+            left: 0;
+            padding: 0 10px;
+            border-radius: 10px;
+            background-color: #F2F4F6;
+
+        }
+    }
+}
+
 #suggestInput {
     font-size: 20px;
     padding: 9px;
