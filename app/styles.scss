@@ -29,7 +29,7 @@ header {
             padding: 6px 12px;
             border: none;
             border-radius: 20px;
-            color: #797CA6;
+            color: #787ca6;
             background-color: #F2F4F6;
         }
 
@@ -44,18 +44,6 @@ header {
             background-color: #F2F4F6;
 
         }
-    }
-}
-
-#suggestInput {
-    font-size: 20px;
-    padding: 9px;
-    width: 100%;
-    box-sizing: border-box;
-    border: 1px solid #787ca659;
-
-    &::placeholder {
-        color: lightgray;
     }
 }
 
@@ -213,6 +201,9 @@ label {
   
 
 .tagify {
+    --tags-border-color: #787ca659;
+    border-radius: 8px;
+
     &__tag>div>* {
         overflow: inherit;
     }
@@ -221,4 +212,15 @@ label {
         font: 14px/14px Serif;
         top: 48%;
     }
+
+    .tagify__input::after {
+        display: none;
+    }
+    
+    // TODO: прятать плейсхолдер после появления первого тега
+    // &.tagify--focus {
+    //     .tagify__input::before {
+    //         display: none;
+    //     }
+    // }
 }

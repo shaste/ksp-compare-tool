@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
       enabled: 1,
       maxItems: 100,
     },
+    'autocomplete.enabled': false,
     templates : {
       tag : function(v, tagData){
           try{
