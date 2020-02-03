@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const preInputValue = tagify.value;
     const inputValue = preInputValue.map(function(element) {
       return element.value;
-    })
+    });
 
-	  fetch("http://lunrox.com:4486/compounds", {
+	  fetch("/api/compounds", {
 	    method: "POST",
 	    body: JSON.stringify(inputValue),
 	    headers: {
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         })
 	    });
-	};
+	}
 
 
 
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	      `
 	    )
 	    .join(""); 
-  };
+  }
 
   const input = document.querySelector('input[name=ions]');
 
@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { value: "WO4^2-", output: "WO<sub>4</sub><sup>2−</sup>" },
       { value: "ZrF6^2-", output: "ZrF<sub>6</sub><sup>2−</sup>" }
     ]
-  })
+  });
 
   $('#load-button').on('click', function() {
     loadCards();
@@ -327,24 +327,24 @@ document.addEventListener('DOMContentLoaded', () => {
   
   tagify.on('dropdown:select', function() {
     enter = false;
-  })
+  });
   
   tagify.on('dropdown:hide', function() {
     setTimeout(function() {
       enter = true;
     }, 300)
-  })
+  });
   
   // TODO Отслеживать момент, когда все теги удалены?
   $(tagify.DOM.input).keyup(function (event) {  
     if (event.keyCode == 13 && currentTag !== '' && currentTag !== null && enter !== false) {
       loadCards();
     }
-  })
+  });
 
   $('.menu-icon').on('click', function(){
     $('.menu-opened').toggle();
-  })
+  });
 
   $('html').click(function(event) {
     if (!$(event.target).hasClass('menu-icon') && !$(event.target).hasClass('menu-opened')) {
