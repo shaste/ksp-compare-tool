@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	            <p class="comment">${compound.comment}</p>
 	          </div>
 	          <div class="niz">
-	            <p class="dissotiation">$\\ce{${compound.dissotiation}}$</p>
+	            <p class="dissociation">$\\ce{${compound.dissociation}}$</p>
               <div class="colors">                
                 ${compound.colors.map(color => `<div class="color-sample" style="background-color:${color.code};"></div>`).join("")}
               </div>
