@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	            <p class="comment">${compound.comment}</p>
 	          </div>
 	          <div class="niz">
-	            <p class="dissociation">$\\ce{${compound.dissotiation}}$</p>
+	            <p class="dissociation">$\\ce{${compound.dissociation}}$</p>
               <div class="colors">                
                 ${compound.colors.map(color => {
                   function borderColor () {
