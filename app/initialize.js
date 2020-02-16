@@ -1,9 +1,13 @@
-import Tagify from '@yaireo/tagify'
+import Tagify from '@yaireo/tagify';
 import $ from 'jquery';
 
 document.addEventListener('DOMContentLoaded', () => {
   let currentTag = null;
   let enter = false;
+  let compounds = [];
+  let $logSwitch;
+  let isChecked = false;
+  let isCompareOpen = false;
 
 	function loadCards () {
     const preInputValue = tagify.value;
@@ -20,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	  }) 
 	    .then(response => response.json())
 	    .then(json => {
-	      // Превращаем JSON d вёрстку
+	      // JSON to markup
         let html = renderCompounds(json);
         
         if (html.length !== 0) {
@@ -29,44 +33,125 @@ document.addEventListener('DOMContentLoaded', () => {
               <h3>Possible products</h3>
               <label for="minus-log">
                 &minus;log
-                <input type="checkbox" class="toggle-switch" id="minus-log">
+                <input 
+                  type="checkbox" 
+                  class="toggle-switch" 
+                  id="minus-log" 
+                  ${isChecked ? 'checked' : ''}
+                  >
               </label>
             </div>
 	          <div class="list">
-	            ${html}
+              ${html}
 	          </div>
           `;
         } else {
           document.querySelector("#app").innerHTML = `
             <div class="no-compounds">
-              <p>These ions don't form compounds</p>
+              <p>These ions don't form insoluble compounds</p>
             </div>
           `;
         }
-        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+
+        // Check -log state
+        $logSwitch = $('#minus-log, #minus-log-menu');
+        toggleSwitch();
+
+        // Prettify chem formulas
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,"app"]);
+
+        // Check .card in list and select already selected
+        updateSelectedList(); 
         
-        $('#minus-log').change(function() {
-          if (this.checked) {
-            $('.scientific').hide();
-            $('.minus-log').show();
-            $('.ksp').css('padding-top', '3px');
+
+        $logSwitch.change(function(){
+          this.checked ? isChecked = true : isChecked = false;
+          toggleSwitch();
+        });
+
+        $('#app .card').on('click', function() {
+          const compoundName = $(this).attr('data-compound-name'); 
+          const compoundId = $(this).attr('data-compound-id'); 
+          
+          // add to compare and select card after click in list
+          if (!$(this).hasClass('selected')) { 
+            compounds.push({'name': compoundName, 'id': compoundId});
+            $(this).clone().appendTo('.compare-menu .compare-menu-container');
+            $(this).addClass('selected');
+            $('.compare-menu').addClass('shown');
           } else {
-            $('.scientific').show();
-            $('.minus-log').hide();
-            $('.ksp').css('padding-top', '0');
+            // unselect card
+            $(this).removeClass('selected');
+            compounds = compounds.filter(item => item.id !== compoundId);
+            
+            // remove card with THIS data-compound-id from compare-menu
+            $('.compare-menu .card').each(function(index, element){ 
+              const compareCompoundId = element.dataset.compoundId;
+              if (compareCompoundId === compoundId) {
+                element.remove();
+              }
+            });
           }
-        })
+
+          // pop up small compare-menu after selecting first card
+          // and adding compound names there
+          if (compounds.length > 0) {
+            $('.compare-small').html(
+              compounds.map(
+                compound => 
+                  `<div class="micro-card">$\\ce{${compound.name}}$</div>`
+                )
+                .join('')
+            );
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub,"small-compounds"]);
+          } else {
+            $('.compare-menu').removeClass('shown');
+          }
+        });
+
+        $('.compare-title').on('click', function(){
+          $('.compare-menu').addClass('opened');
+          setTimeout(function() { // чтобы не дергалась ширина боди
+            $('body').css('position', 'fixed')
+          }, 100)
+        });
+
+        $('button.hide-btn').on('click', function(){
+          $('.compare-menu').removeClass('opened');
+          $('body').css('position', '');
+        });
 	    });
+      
+      // delete card from compare-menu after click on × 
+      $('.compare-menu').on('click', '.card .erase-btn', function() {
+        compounds = compounds.filter(
+          item => item.id !== $(this).parent().attr('data-compound-id')
+        );
+        $(this).parent().remove();
+    
+        updateSelectedList();
+
+        if (compounds.length > 0) {
+          $('.compare-small').html(
+            compounds.map(
+              compound => 
+                `<div class="micro-card">$\\ce{${compound.name}}$</div>`
+              )
+              .join('')
+          );
+          MathJax.Hub.Queue(["Typeset",MathJax.Hub,"small-compounds"]);
+        } else {
+          $('.compare-menu').removeClass('shown opened');
+          $('body').css('position', '');
+        }
+      });
 	}
-
-
 
 	function renderCompounds(data) {
 	  return data
 	    .map(
-        // TODO: проверять чекбокс, если включен — создавать карточки с видимым .minus-log
 	      compound => `
-	        <div class="card">
+	        <div class="card" data-compound-name="${compound.name}" data-compound-id="${compound._id.$oid}">
 	          <div class="verh">
 	            <div class="wrap">
 	              <h2 class="compound">$\\ce{${compound.name}}$</h2>
@@ -78,11 +163,32 @@ document.addEventListener('DOMContentLoaded', () => {
 	            <p class="comment">${compound.comment}</p>
 	          </div>
 	          <div class="niz">
-	            <p class="dissociation">$\\ce{${compound.dissociation}}$</p>
+	            <p class="dissociation">$\\ce{${compound.dissotiation}}$</p>
               <div class="colors">                
-                ${compound.colors.map(color => `<div class="color-sample" style="background-color:${color.code};"></div>`).join("")}
+                ${compound.colors.map(color => {
+                  function borderColor () {
+                    if (color.code === '#FFFFFF') {
+                      return 'rgba(0, 0, 0, 0.15)';
+                    } 
+                  }
+
+                  return `
+                    <div 
+                      class="color-sample" 
+                      style="background-color:${color.code}; border: 1px solid ${borderColor()};">
+                    </div>
+                  `
+                }).join("")}
               </div>
-	          </div>
+            </div>
+            <button class="erase-btn">
+              <svg viewBox="0 0 10 10">
+                <g>
+                  <line x1="0" y1="0" x2="10" y2="10"/>
+                  <line x1="10" y1="0" x2="0" y2="10"/>
+                </g>
+              </svg>
+            </button>
 	        </div>
 	      `
 	    )
@@ -180,7 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
       { value: "(NH3)^0", output: "(NH<sub>3</sub>)<sup>0</sup>" },
       { value: "Ni^2+", output: "Ni<sup>2+</sup>" },
       { value: "[Ni(NH3)6]^2+", output: "[Ni(NH<sub>3</sub>)<sub>6</sub>]<sup>2+</sup>" },
-      { value: "Ni^2+", output: "Ni<sup>2+</sup>" },
       { value: "NpO2^2+", output: "NpO<sub>2</sub><sup>2+</sup>" },
       { value: "Pb^2+", output: "Pb<sup>2+</sup>" },
       { value: "Pb^4+", output: "Pb<sup>4+</sup>" },
@@ -316,6 +421,31 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
   });
 
+  function updateSelectedList() {
+    $('#app .card').each(function(index, element){
+      let compoundId = element.dataset.compoundId;
+      if (compounds.some(item => item.id === compoundId)) {
+        element.classList.add('selected');
+      } else {
+        element.classList.remove('selected');
+      }
+    });
+  }
+
+  function toggleSwitch() {
+    if (isChecked) {
+      $('.scientific').hide();
+      $('.minus-log').show();
+      $('.ksp').css('padding-top', '3px');
+      $logSwitch.prop('checked', true);
+    } else {
+      $('.scientific').show();
+      $('.minus-log').hide();
+      $('.ksp').css('padding-top', '0');
+      $logSwitch.prop('checked', false);
+    }
+  }
+
   $('#load-button').on('click', function() {
     loadCards();
     event.preventDefault();
@@ -352,5 +482,15 @@ document.addEventListener('DOMContentLoaded', () => {
         $('.menu-opened').toggle();
       }
     }
-  })
+  });
+
+  $('.clear-btn').on('click', function(){
+    compounds = [];
+    $('.compare-menu .card').remove();
+    
+    updateSelectedList();
+    
+    $('.compare-menu').removeClass('shown');
+    $('body').css('position', '');
+  });
 });
