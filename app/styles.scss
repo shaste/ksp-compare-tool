@@ -34,11 +34,19 @@ header {
             border-radius: 20px;
             color: #787ca6;
             background-color: #eaedf0;
+            transition: background-color 300ms ease-in-out;
 
             outline: none;
 
             &:active {
-                background-color: #d5dbe1;
+                background-color: rgba(121,124,166,0.3);
+            }
+            
+            @media all and (min-width: 1080px) {
+                &:hover {
+                    background-color: rgba(121,124,166,0.3);
+                    transition: 0ms;
+                }
             }
         }
 
@@ -51,7 +59,7 @@ header {
             padding: 0 10px;
             border-radius: 10px;
             background-color: #F2F4F6;
-            box-shadow: 0 0 10px 0 rgba(121,124,166,0.5);
+            box-shadow: 0 0 10px 0 rgba(121,124,166,0.3);
         }
     }
 }
@@ -66,8 +74,8 @@ header {
     right: 0;
     top: 0;
     bottom: 0;
-
     border-radius: 8px;
+    transition: background-color 300ms ease-in-out;
 
     &::after {
         display: block;
@@ -76,8 +84,11 @@ header {
         content: url(images/enter-arrow.svg);
     }
 
-    &:hover {
-        background: rgba(0, 0, 0, 0.04);
+    @media all and (min-width: 1080px) {
+        &:hover {
+            background: rgba(121,124,166,0.2);
+            transition: 0ms;
+        }
     }
 }
 
@@ -97,6 +108,7 @@ header {
 }
 
 .card {
+    cursor: pointer;
     position: relative;
     background-color: #F2F4F6;
     border-radius: 8px;
@@ -110,6 +122,48 @@ header {
         left: -9px;
         font-size: 12px;
         color: #d7d7d7;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        bottom: -2px;
+        right: -2px;
+        border: 2px solid rgba(121,124,166,0);
+        border-radius: 10px;
+        transition: border 300ms ease;
+    }
+
+    @media all and (min-width: 1080px) {
+        &::after {
+            content: '';
+        }
+
+        &:hover {
+            &::after {
+                content: '+';
+                position: absolute;
+                transform: translateY(-50%);
+                top: 50%;
+                left: -15px;
+                font-size: 16px;
+                color: rgba(121,124,166,0.5);
+            }
+    
+            &::before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                bottom: -2px;
+                right: -2px;
+                border: 2px solid rgba(121,124,166,0.3);
+                border-radius: 10px;
+                transition: 0ms;
+            }
+        }
     }
     
     // TODO: переименовать verh и niz
@@ -153,7 +207,7 @@ header {
     .niz {
         display: flex;
         margin-left: 10px;
-        border-top: 1px solid #787ca659;
+        border-top: 1px solid rgba(121,124,166,0.3);
         justify-content: space-between;
         align-items: center;
 
@@ -229,6 +283,12 @@ label {
         border-radius: 1.5em;
         position: relative;
         transition: .2s;
+
+        @media all and (min-width: 1080px) {
+            &:hover {
+                background: rgba(121,124,166,0.3);
+            }
+        }
             
         &:checked {
             background: limegreen;
@@ -338,7 +398,6 @@ label {
         h3.compare-title {
             flex-grow: 1;
             position: relative;
-            cursor: pointer;
 
             &::before {
                 content: "";
@@ -361,7 +420,7 @@ label {
             background: transparent;
             cursor: pointer;
 
-            &:hover {
+            &:active {
                 color: red;
             }
 
@@ -375,6 +434,10 @@ label {
                 width: 100%;
                 padding: 20px;
                 background: rgba(255, 255, 255, 0.5);
+
+                &:hover {
+                    background: rgba(208, 2, 27, 0.05);
+                }
             }
         }
     }
@@ -439,15 +502,14 @@ label {
             }
 
             .hide-btn {
-                cursor: pointer;
                 padding: 3px 10px;
                 color: #494c69;
-                border: 1px solid rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(121,124,166,0.5);
                 border-radius: 6px;
                 background: transparent;
                 
-                &:hover {
-                    background: #F2F4F6;
+                &:active {
+                    background: rgba(121,124,166,0.2);
                 }
 
                 @media all and (min-width: 1080px) {
@@ -483,15 +545,27 @@ label {
         &::after {
             content: '';
         }
+
+        &::before {
+            transition: none;
+        }
+
+        &:hover {
+            cursor: default;
+            
+            &::before {
+                border: none;
+            }
+        }
         
         .erase-btn {
             display: block;
             position: absolute;
-            top: -3px;
+            top: -23px;
             right: -12px;
             background: transparent;
             border: none;
-            padding: 0 0 40px 30px;
+            padding: 20px 0 40px 30px;
             
             cursor: pointer;
             outline: none;
