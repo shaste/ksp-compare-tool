@@ -465,6 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   tagify.on('input', function (event) {
     currentTag = event.detail.value;
+    enter = false;
   });
   
   tagify.on('dropdown:select', function() {
