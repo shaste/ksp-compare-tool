@@ -1,7 +1,10 @@
+$body-width: 375px;
+$menu-width: 375px;
+
 body {
     margin: 0 auto;
     font-family: sans-serif;
-    max-width: 375px;
+    max-width: $body-width;
 }
 
 header {
@@ -9,6 +12,10 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
+    @media all and (min-width: 1080px) {
+        margin-top: 30px;
+    }
 
     img {
         display: black;
@@ -296,6 +303,15 @@ label {
 
     transition: top 100ms ease;
 
+    @media all and (min-width: 1080px) {
+        transition: right 100ms ease;
+        top: -80px;
+        left: unset;
+        right: -375px;
+        width: $menu-width;
+        box-shadow: 0 0 20px 0 rgba(121,124,166,0);
+    }
+
     &::before {
         content: '';
         position: absolute;
@@ -307,11 +323,6 @@ label {
         border-radius: 4px;
         transform: translateX(-50%);
     }
-
-    // @media screen and (min-width: 768px) {
-    //     width: 375px;
-    //     left: unset;
-    // }
 
     & > .subtitle {
         padding: 15px 10px 0;
@@ -352,6 +363,18 @@ label {
 
             &:hover {
                 color: red;
+            }
+
+            @media all and (min-width: 1080px) {
+                position: absolute;
+                transform: translate(50%);
+                right: 50%;
+                bottom: 25px;
+                z-index: 99;
+                backdrop-filter: blur(5px);
+                width: 100%;
+                padding: 20px;
+                background: rgba(255, 255, 255, 0.5);
             }
         }
     }
@@ -396,6 +419,10 @@ label {
             .sub-nav {
                 min-width: 80px;
 
+                @media all and (min-width: 1080px) {
+                    min-width: 0;
+                }
+
                 &:last-of-type {
                     display: flex;
                     justify-content: flex-end;
@@ -405,6 +432,10 @@ label {
             h3 {
                 text-align: center;
                 flex-grow: 1;
+
+                @media all and (min-width: 1080px) {
+                    text-align: left;
+                }
             }
 
             .hide-btn {
@@ -418,6 +449,10 @@ label {
                 &:hover {
                     background: #F2F4F6;
                 }
+
+                @media all and (min-width: 1080px) {
+                    display: none;
+                }
             }
         }
     }
@@ -428,10 +463,20 @@ label {
 
     &.shown {
         top: calc(100% - 80px);
+
+        @media all and (min-width: 1080px) {
+            right: 0;
+        }
     }
 
     &.opened {
         top: -80px;
+
+        @media all and (min-width: 1080px) {
+            right: 0;
+            left: unset;
+            box-shadow: 0 0 20px 0 rgba(121,124,166,0.3);
+        }
     }
 
     .card {

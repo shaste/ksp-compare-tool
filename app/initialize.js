@@ -78,7 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
             compounds.push({'name': compoundName, 'id': compoundId});
             $(this).clone().appendTo('.compare-menu .compare-menu-container');
             $(this).addClass('selected');
-            $('.compare-menu').addClass('shown');
+
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+              $('.compare-menu').addClass('shown');
+            } else {
+              $('.compare-menu').addClass('shown opened');
+            }
           } else {
             // unselect card
             $(this).removeClass('selected');
@@ -105,15 +110,22 @@ document.addEventListener('DOMContentLoaded', () => {
             );
             MathJax.Hub.Queue(["Typeset",MathJax.Hub,"small-compounds"]);
           } else {
-            $('.compare-menu').removeClass('shown');
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+              $('.compare-menu').removeClass('shown');
+            } else {
+              $('.compare-menu').removeClass('shown opened');
+            }
           }
         });
 
         $('.compare-title').on('click', function(){
           $('.compare-menu').addClass('opened');
-          setTimeout(function() { // чтобы не дергалась ширина боди
-            $('body').css('position', 'fixed')
-          }, 100)
+          
+          if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            setTimeout(function() { // чтобы не дергалась ширина боди
+              $('body').css('position', 'fixed')
+            }, 100)
+          }
         });
 
         $('button.hide-btn').on('click', function(){
@@ -163,19 +175,19 @@ document.addEventListener('DOMContentLoaded', () => {
 	            <p class="comment">${compound.comment}</p>
 	          </div>
 	          <div class="niz">
-	            <p class="dissociation">$\\ce{${compound.dissociation}}$</p>
+	            <p class="dissociation">$\\ce{${compound.dissotiation}}$</p> <!-- dissotiation —-for dev -->
               <div class="colors">                
                 ${compound.colors.map(color => {
                   function borderColor () {
                     if (color.code === '#FFFFFF') {
-                      return 'rgba(0, 0, 0, 0.15)';
+                      return 'border: 1px solid rgba(0, 0, 0, 0.15);';
                     } 
                   }
 
                   return `
                     <div 
                       class="color-sample" 
-                      style="background-color:${color.code}; border: 1px solid ${borderColor()};">
+                      style="background-color:${color.code}; ${borderColor()}">
                     </div>
                   `
                 }).join("")}
@@ -490,7 +502,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     updateSelectedList();
     
-    $('.compare-menu').removeClass('shown');
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      $('.compare-menu').removeClass('shown');
+    } else {
+      $('.compare-menu').removeClass('shown opened');
+    }
+
     $('body').css('position', '');
   });
 });
