@@ -490,8 +490,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   $('html').click(function(event) {
-    if (!$(event.target).hasClass('menu-icon') && !$(event.target).hasClass('menu-opened')) {
-      if ($('.menu-opened:visible').length === 1 && !$(event.target).parents('.menu-opened').length) {
+    if (!$(event.target).hasClass('menu-icon') && !$(event.target).hasClass('menu-body')) {
+      if ($('.menu-opened:visible').length === 1 && !$(event.target).parents('.menu-body').length) {
         $('.menu-opened').toggle();
       }
     }
