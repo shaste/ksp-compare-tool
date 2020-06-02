@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return element.value;
     });
 
-	  fetch("/api/compounds", {
+	  fetch("/api/compounds", { // "/api/compounds", "http://lunrox.com:4486/compounds" -- for dev
 	    method: "POST",
 	    body: JSON.stringify(inputValue),
 	    headers: {
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	            <p class="comment">${compound.comment}</p>
 	          </div>
 	          <div class="niz">
-	            <p class="dissociation">$\\ce{${compound.dissotiation}}$</p> <!-- dissotiation —-for dev -->
+	            <p class="dissociation">$\\ce{${compound.dissociation}}$</p> <!-- dissotiation with T —-for dev -->
               <div class="colors">                
                 ${compound.colors.map(color => {
                   function borderColor () {
