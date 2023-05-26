@@ -380,7 +380,11 @@ label {
         }
     }
 }
-  
+
+// прячет плейсхолдер, когда в поле есть тег
+.tagify__tag + .tagify__input::before{
+    display: none;
+}
 
 .tagify {
     --tag-bg: #eaedf0;
