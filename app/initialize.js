@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return element.value;
     });
 
-	  fetch("/api/compounds", { // "/api/compounds", "http://lunrox.com:4486/compounds" -- for dev
+	  fetch("/ksp-tool/api/compounds", { // "/api/compounds", "http://lunrox.com:4486/compounds" -- for dev
 	    method: "POST",
 	    body: JSON.stringify(inputValue),
 	    headers: {
